@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Liste des matchs et cotes</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <h1>Matchs et Cotes</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Compétition</th>
+                <th>Match</th>
+                <th>Date</th>
+                <th>Cotes principales</th>
+                <th>Détail</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for match in matchs %}
+            <tr>
+                <td>{{ match.CE }}</td>
+                <td>{{ match.O1 }} vs {{ match.O2 }}</td>
+                <td>{{ match.S }}</td>
+                <td>
+                    {% if match.AE and match.AE[0].ME %}
+                        {% for cote in match.AE[0].ME[:3] %}
+                            <span>{{ cote.C }}</span>{% if not loop.last %} / {% endif %}
+                        {% endfor %}
+                    {% else %}
+                        -
+                    {% endif %}
+                </td>
+                <td><a href="/detail/{{ match.I }}">Voir détail</a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html> 
