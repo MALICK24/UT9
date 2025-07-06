@@ -7,7 +7,7 @@
 </head>
 <body>
     <h1>Matchs et Cotes</h1>
-    <table border="1">
+    <table>
         <thead>
             <tr>
                 <th>Compétition</th>
@@ -20,7 +20,20 @@
         <tbody>
         {% for match in matchs %}
             <tr>
-                <td>{{ match.CE }}</td>
+                <td>
+                    {% set comp = match.SN|lower %}
+                    <span class="competition-badge
+                        {% if 'fifa' in comp %}competition-fifa
+                        {% elif 'champions' in comp %}competition-champions
+                        {% elif 'europe' in comp %}competition-europe
+                        {% elif 'england' in comp or 'angleterre' in comp %}competition-england
+                        {% elif 'italy' in comp or 'italie' in comp %}competition-italy
+                        {% elif 'germany' in comp or 'allemagne' in comp %}competition-germany
+                        {% elif 'spain' in comp or 'espagne' in comp %}competition-spain
+                        {% endif %}">
+                        {{ match.SN or match.CE or match.CN }}
+                    </span>
+                </td>
                 <td>{{ match.O1 }} vs {{ match.O2 }}</td>
                 <td>{{ match.S }}</td>
                 <td>
