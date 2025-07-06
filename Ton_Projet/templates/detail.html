@@ -8,7 +8,7 @@
 <body>
     <h1>Détail du match</h1>
     <h2>{{ match.O1 }} vs {{ match.O2 }}</h2>
-    <p><strong>Compétition :</strong> {{ match.CE }}</p>
+    <p><strong>Compétition :</strong> <span class="competition-badge">{{ match.SN or match.CE or match.CN }}</span></p>
     <p><strong>Date :</strong> {{ match.S }}</p>
     <h3>Cotes</h3>
     {% if match.AE %}
@@ -23,6 +23,19 @@
     {% else %}
         <p>Aucune cote disponible.</p>
     {% endif %}
+    <hr>
+    <h3>Module de prédiction</h3>
+    <div id="prediction-module">
+        <button class="button-predict" onclick="predict('Victoire {{ match.O1 }}')">Victoire {{ match.O1 }}</button>
+        <button class="button-predict" onclick="predict('Match nul')">Match nul</button>
+        <button class="button-predict" onclick="predict('Victoire {{ match.O2 }}')">Victoire {{ match.O2 }}</button>
+        <div id="prediction-result" class="prediction-result"></div>
+    </div>
     <a href="/">Retour à la liste</a>
+    <script>
+        function predict(result) {
+            document.getElementById('prediction-result').innerText = 'Votre prédiction : ' + result;
+        }
+    </script>
 </body>
 </html> 
